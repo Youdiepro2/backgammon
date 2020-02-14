@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Backgamon</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='game.css') }}"
+  </head>
+  <body>
+    <div class="game">
+      <div class="board">
+        <div class="side side__top">
+            {% for field in game.fields if field.id < 13 %}
+              <div id="field{{ field.id }}" class="field {{ 'field__bot' if field.id > 12 else 'field__top' }}">
+                {{field.id}}
+                {% for pawn in field.pawns %}
+                  <div class="pawn pawn__{{pawn.color}}">
+                    {{ pawn.id }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+        </div>
+        <div class="side side__bot">
+          {% for field in game.fields if field.id > 12 %}
+            <div id="field{{ field.id }}" class="field {{ 'field__bot' if field.id > 12 else 'field__top' }}">
+              {{field.id}}
+              {% for pawn in field.pawns %}
+                <div class="pawn pawn__{{pawn.color}}">
+                  {{ pawn.id }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

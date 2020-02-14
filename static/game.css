@@ -1,0 +1,45 @@
+.field {
+    width: 2em;
+    height: 18em;
+    border: 1px solid black;
+}
+
+.side__top{
+  flex-flow: row-reverse;
+}
+
+.side {
+  display: flex;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.field__bot {
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+.pawn__BLACK {
+    background: black;
+}
+
+.pawn__WHITE {
+    background: whitesmoke;
+}
+.pawn {
+    border: 1px solid rebeccapurple;
+    border-radius: 55px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    color: red;
+}

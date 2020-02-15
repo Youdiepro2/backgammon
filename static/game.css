@@ -4,8 +4,28 @@
     border: 1px solid black;
 }
 
+.field > .move_to_this_field {
+    background: yellowgreen;
+    cursor: pointer;
+}
+
 .side__top{
   flex-flow: row-reverse;
+}
+
+.field__bot .field__pawns {
+    display: flex;
+    flex-flow: column-reverse;
+}
+.field__pawns {
+  width: 100%;
+  height: 100%;
+}
+
+.pawn.canMove{
+  background: yellowgreen;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .side {

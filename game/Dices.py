@@ -8,10 +8,14 @@ class Dices():
 
     def roll(self):
         self.results = [randrange(1,6), randrange(1,6)]
+        self.handleDubletWasThrown()
         return self.results
 
     def removeResult(self, result: int):
-        self.results = [r for r in self.results if r != result]
+        for number in self.results:
+            if number == result:
+                self.results.remove(number)
+                return
 
     def handleDubletWasThrown(self)-> bool:
         if len(self.results) == 2 and self.results[0] == self.results[1]:

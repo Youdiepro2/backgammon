@@ -25,8 +25,21 @@ function renderGame(game) {
 	$(MESSAGE_DIV_ID).empty();
 	renderWinner(game);
 	renderFields(game);
+  renderBar(game);
   selectMoves(game);
 	// renderErrors(game);
+}
+
+function renderBar(game){
+  $('#field0').empty();
+  $('#field25').empty();
+  game.pawns.pawns.filter(
+    pawn => pawn.fieldId == 0 || pawn.fieldId == 25
+  ).forEach(pawn => {
+      const fieldId = createFieldId(pawn.fieldId);
+      $(fieldId).append(createPawnHTML(pawn))
+  });
+
 }
 
 function renderWinner(game) {

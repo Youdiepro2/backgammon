@@ -9,5 +9,8 @@ class Moves():
     def __iter__(self):
         return iter(self.moves)
 
+    def __len__(self):
+        return len(self.moves)
+
     def append(self, move: Move):
         self.moves.append(move)

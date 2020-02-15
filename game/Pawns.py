@@ -10,6 +10,9 @@ class Pawns():
     def __iter__(self):
         return iter(self.pawns)
 
+    def __len__(self):
+        return len(self.pawns)
+
     def getPawnById(self, id: int):
         for pawn in self.pawns:
             if pawn.id == id:
@@ -44,7 +47,8 @@ class Pawns():
 
     def getPawnOutOfBoard(self):
         for pawn in self.pawns:
-            if pawn.fieldId is None:
+            if pawn.fieldId is None \
+            or (pawn.fieldId < 1 or pawn.fieldId > 24):
                 return pawn
         return None
 

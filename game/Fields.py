@@ -18,20 +18,35 @@ class Fields():
     def __iter__(self):
         return iter(self.fields)
 
+    def getBarPawnsMoves(self, barPawns: Pawns, dices: Dices, player: Player)-> Moves:
+        moves = Moves()
+        for result in dices.results:
+            for pawn in barPawns:
+                nextFieldId = self.__getFieldIdAfterMove(pawn.fieldId, result, player.direction)
+                print('nextFieldId', nextFieldId, player.__dict__)
+                nextField = self.getFieldById(nextFieldId)
+                if self.__pawnCanMoveTo(pawn, nextField):
+                    moves.append(Move(nextFieldId, pawn.id, result))
+        return moves
+
     def getMoves(self, dices: Dices, player: Player)-> Moves:
         fieldsForCheck = self.getFieldsByPawns(player.pawns)
         moves = Moves()
         for result in dices.results:
             for field in fieldsForCheck:
-                nextFieldId = field.id + result * player.direction
+                nextFieldId = self.__getFieldIdAfterMove(field.id, result, player.direction)
                 nextField = self.getFieldById(nextFieldId)
                 pawn = field.getPawnOnTop()
-                if nextField \
-                    and pawn \
-                    and nextField.accepts(pawn):
+                if self.__pawnCanMoveTo(pawn, nextField):
                         # print(pawn.__dict__, nextFieldId)
                         moves.append(Move(nextFieldId, pawn.id, result))
         return moves
+
+    def __getFieldIdAfterMove(self, currentFieldId: int, result: int, direction):
+        return currentFieldId + result * direction;
+
+    def __pawnCanMoveTo(self, pawn, nextField)-> bool:
+        return nextField and pawn and nextField.accepts(pawn)
 
     def getFieldsByPawns(self, pawns: Pawns):
         ids = pawns.getFieldIds()

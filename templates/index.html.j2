@@ -28,6 +28,8 @@
               </div>
             {% endfor %}
         </div>
+        <div id="field25" class="bar"></div>
+        <div id="field0" class="bar"></div>
         <div class="side side__bot">
           {% for field in game.fields if field.id > 12 %}
             <div class="field {{ 'field__bot' if field.id > 12 else 'field__top' }}">

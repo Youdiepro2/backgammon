@@ -1,3 +1,11 @@
+.bar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2em;
+  border: 2px solid black;
+}
+
 .field {
     width: 2em;
     height: 18em;

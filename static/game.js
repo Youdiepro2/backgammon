@@ -66,7 +66,7 @@ function selectMoves(game) {
   const fields = game.fields.fields;
   const moves = game.moves.moves;
   const pawns = game.pawns.pawns;
-  removeMovesSelect(moves);
+  removeMovesSelect(game);
   pawns.forEach(pawn => {
     const pawnMoves = moves.filter((move) => move.pawnId == pawn.id);
     if (pawnMoves.length){
@@ -78,11 +78,10 @@ function selectMoves(game) {
 }
 
 function selectPawnMoves(game, pawnMoves) {
-  removeMovesSelect(game.moves.moves);
+  removeMovesSelect(game);
   pawnMoves.forEach(move => {
     const fieldId = createFieldId(move.fieldId);
     const pawnId = createPawnId(move.pawnId);
-
     $(pawnId).addClass(CAN_MOVE_CLASS);
     $(fieldId).addClass(MOVE_TO_THIS_FIELD_CLASS);
     $(pawnId).bind('click',() => renderGame(game));
@@ -90,14 +89,20 @@ function selectPawnMoves(game, pawnMoves) {
   });
 }
 
-function removeMovesSelect(moves) {
-  moves.forEach(move => {
-    const fieldId = createFieldId(move.fieldId);
-    const pawnId = createPawnId(move.pawnId);
+function removeMovesSelect(game) {
+  const fields = game.fields.fields;
+  fields.forEach(field => {
+
+    const fieldId = createFieldId(field.id);
     $(fieldId).off('click');
-    $(pawnId).off('click');
     $(fieldId).removeClass(MOVE_TO_THIS_FIELD_CLASS);
-    $(pawnId).removeClass(CAN_MOVE_CLASS);
+
+    field.pawns.pawns.forEach(pawn => {
+      const pawnId = createPawnId(pawn.id);
+      $(pawnId).off('click');
+      $(pawnId).removeClass(CAN_MOVE_CLASS);
+    });
+
   });
 }
 

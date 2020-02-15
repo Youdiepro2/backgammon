@@ -30,7 +30,7 @@ class Fields():
                     and pawn \
                     and nextField.accepts(pawn):
                         # print(pawn.__dict__, nextFieldId)
-                        moves.append(Move(nextFieldId, pawn.id))
+                        moves.append(Move(nextFieldId, pawn.id, result))
         return moves
 
     def getFieldsByPawns(self, pawns: Pawns):

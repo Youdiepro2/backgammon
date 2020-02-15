@@ -17,6 +17,9 @@ class Field():
     def getPawnOnTop(self):
         return self.pawns.getLastPawnInList()
 
+    def removePawnFromTop(self):
+        self.pawns.pop()
+
     def accepts(self, pawn: Pawn)-> bool:
         color = GET_OPPOSITE_COLOR(pawn.color)
         return 2 > self.pawns.countPawnsInColor(color)

@@ -10,6 +10,15 @@ class Pawns():
     def __iter__(self):
         return iter(self.pawns)
 
+    def getPawnById(self, id: int):
+        for pawn in self.pawns:
+            if pawn.id == id:
+                return pawn
+        return None
+
+    def pop(self):
+        self.pawns.pop()
+
     def countPawnsInColor(self, color: str)-> int:
         count = 0;
         for pawn in self.pawns:

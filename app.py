@@ -13,7 +13,7 @@ game = pickle.loads(fileContent)
 @app.route('/')
 def hello_world():
     # game.createInInitialState()
-    print(game.moves.moves)
+    # print(game.moves.moves)
 
     return render_template('index.html.j2', game=game)
 
@@ -22,7 +22,7 @@ def ajax():
     req = request.get_json()
     move = Move.fromRequest(req)
     if move:
-        createFixture(game)
+        # createFixture(game)
         game.move(move)
     return game.toJSON()
 

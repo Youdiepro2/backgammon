@@ -26,8 +26,16 @@ function renderGame(game) {
 	renderWinner(game);
 	renderFields(game);
   renderBar(game);
+  renderDices(game);
   selectMoves(game);
 	// renderErrors(game);
+}
+
+function renderDices(game) {
+  $('#dices').empty();
+  game.dices.results.forEach(result => {
+    $('#dices').append(`<div class='dice'>${result}</p>`)
+  });
 }
 
 function renderBar(game){

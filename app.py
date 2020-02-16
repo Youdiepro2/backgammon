@@ -5,10 +5,10 @@ MOVE_CMD = 'move'
 
 app = Flask(__name__)
 fileName = 'simple1.pkl';
-game = Game()
-# with open(fileName, mode='rb') as file:
-#     fileContent = file.read()
-# game = pickle.loads(fileContent)
+# game = Game()
+with open(fileName, mode='rb') as file:
+    fileContent = file.read()
+game = pickle.loads(fileContent)
 
 @app.route('/')
 def hello_world():

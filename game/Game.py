@@ -48,15 +48,14 @@ class Game():
             self.moves = self.fields.getBarPawnsMoves(barPawns, self.dices, self.turn)
             return
 
-        # print(self.turn.redyForWinningMoves(), self.turn.__dict__)
         if self.turn.redyForWinningMoves():
             self.moves = self.fields.getWinningMoves(self.turn, self.dices)
-            # for move in self.moves:
-            #     print('winning move', move)
-
         self.moves.merge(self.fields.getMoves(self.dices, self.turn))
 
     def move(self, move: Move):
+        if self.winner != None:
+            return
+
         if move not in self.moves:
             return
 
@@ -77,7 +76,8 @@ class Game():
 
         pawn.fieldId = move.fieldId
         self.dices.removeResult(move.diceResult)
-
+        self.updateWinner()
+        
         if 0 == len(self.dices.results):
             self.changeTurn()
 
@@ -86,9 +86,14 @@ class Game():
         #     print(move.__dict__)
         # return
 
-        if 0 == len(self.moves):
+        while 0 == len(self.moves):
             self.changeTurn()
             self.getMoves()
+
+    def updateWinner(self):
+        for player in self.players:
+            if player.hasAllPawnsOnWinField():
+                self.winner = player
 
     def changeTurn(self):
         self.turn = self.getSecondPlayer()

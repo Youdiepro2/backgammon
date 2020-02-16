@@ -15,6 +15,12 @@ class Player():
         self.pawns = Pawns()
         self.bar = 0 if direction == 1 else 25
 
+    def hasAllPawnsOnWinField(self)-> bool:
+        for pawn in self.pawns:
+            if pawn.fieldId != HOME_MOVE_FIELD_ID:
+                return False
+        return True
+
     def redyForWinningMoves(self)-> bool:
         homeFieldIds = self.getHomeFieldIds()
         for pawn in self.pawns:

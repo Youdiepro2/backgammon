@@ -12,5 +12,8 @@ class Moves():
     def __len__(self):
         return len(self.moves)
 
+    def merge(self, moves):
+        self.moves = self.moves + moves.moves
+
     def append(self, move: Move):
         self.moves.append(move)

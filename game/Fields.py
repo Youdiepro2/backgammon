@@ -5,6 +5,7 @@ from game.Player import Player
 from game.Moves import Moves
 from game.Move import Move
 from game.Dices import Dices
+from game.Constants import HOME_MOVE_FIELD_ID
 
 class Fields():
     fields = []
@@ -18,12 +19,22 @@ class Fields():
     def __iter__(self):
         return iter(self.fields)
 
+    def getWinningMoves(self, player: Player, dices: Dices):
+        moves = Moves()
+        for result in dices.results:
+            for field in self.getFieldsByPawns(player.pawns):
+                pawn = field.getPawnOnTop()
+                nextFieldId = self.__getFieldIdAfterMove(pawn.fieldId, result, player.direction)
+                if nextFieldId > 24 or nextFieldId < 1:
+                    moves.append(Move(HOME_MOVE_FIELD_ID, pawn.id, result))
+        return moves
+
     def getBarPawnsMoves(self, barPawns: Pawns, dices: Dices, player: Player)-> Moves:
         moves = Moves()
         for result in dices.results:
             for pawn in barPawns:
                 nextFieldId = self.__getFieldIdAfterMove(pawn.fieldId, result, player.direction)
-                print('nextFieldId', nextFieldId, player.__dict__)
+                # print('nextFieldId', nextFieldId, player.__dict__)
                 nextField = self.getFieldById(nextFieldId)
                 if self.__pawnCanMoveTo(pawn, nextField):
                     moves.append(Move(nextFieldId, pawn.id, result))

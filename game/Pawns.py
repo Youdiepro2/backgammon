@@ -13,6 +13,12 @@ class Pawns():
     def __len__(self):
         return len(self.pawns)
 
+    def removePawnById(self, pawnId):
+        for pawn in self.pawns: #range(len(self.pawns)-1):
+            # pawn = self.pawns[i];
+            if pawn.id == pawnId:
+                del pawn
+
     def getPawnById(self, id: int):
         for pawn in self.pawns:
             if pawn.id == id:

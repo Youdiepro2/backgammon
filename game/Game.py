@@ -4,6 +4,7 @@ from game.Pawns import Pawns
 from game.Dices import Dices
 from game.Moves import Moves
 from game.Move import Move
+from game.Constants import HOME_MOVE_FIELD_ID
 import json
 
 class Game():
@@ -41,19 +42,19 @@ class Game():
         self.getMoves()
 
     def getMoves(self):
+        self.moves = Moves()
         barPawns = self.turn.getPawnsFromBar()
-        for pawn in barPawns:
-            print('barPawns', pawn.__dict__)
         if 0 != len(barPawns):
             self.moves = self.fields.getBarPawnsMoves(barPawns, self.dices, self.turn)
             return
 
+        # print(self.turn.redyForWinningMoves(), self.turn.__dict__)
+        if self.turn.redyForWinningMoves():
+            self.moves = self.fields.getWinningMoves(self.turn, self.dices)
+            # for move in self.moves:
+            #     print('winning move', move)
 
-        self.moves = self.fields.getMoves(self.dices, self.turn)
-        # print('dices', self.dices.results)
-        # for move in self.moves:
-        #     print(move.__dict__)
-        # return
+        self.moves.merge(self.fields.getMoves(self.dices, self.turn))
 
     def move(self, move: Move):
         if move not in self.moves:
@@ -63,7 +64,7 @@ class Game():
         currentField = self.fields.getFieldById(pawn.fieldId)
         nextField = self.fields.getFieldById(move.fieldId)
 
-        if nextField.hasOnePawnToBeat(pawn):
+        if nextField and nextField.hasOnePawnToBeat(pawn):
             beatedPawn = nextField.getPawnOnTop()
             nextField.removePawnFromTop()
             beatedPawn.fieldId = self.turn.getOppositeBarId()
@@ -71,24 +72,23 @@ class Game():
         # bar is not included in fields
         if currentField:
             currentField.removePawnFromTop()
-        pawn.fieldId = nextField.id
-        nextField.addPawn(pawn)
+        if nextField:
+            nextField.addPawn(pawn)
 
-        # handle winning moves
-
+        pawn.fieldId = move.fieldId
         self.dices.removeResult(move.diceResult)
 
         if 0 == len(self.dices.results):
             self.changeTurn()
 
         self.getMoves()
+        # for move in self.moves:
+        #     print(move.__dict__)
+        # return
 
         if 0 == len(self.moves):
             self.changeTurn()
             self.getMoves()
-
-        # for move in self.moves:
-        #     print(move.__dict__)
 
     def changeTurn(self):
         self.turn = self.getSecondPlayer()

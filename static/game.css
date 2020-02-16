@@ -1,3 +1,16 @@
+.winned{
+  width: 100px;
+  height:100px;
+  background: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.winned.move_to_this_field{
+  background: gold;
+  cursor: pointer;
+}
+
 .bar{
   display: flex;
   justify-content: center;

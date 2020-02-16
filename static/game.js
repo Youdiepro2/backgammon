@@ -23,6 +23,7 @@ $(document).ready(function(){
 function renderGame(game) {
 	console.log(game);
 	$(MESSAGE_DIV_ID).empty();
+  $('#field100').removeClass(MOVE_TO_THIS_FIELD_CLASS)
 	renderWinner(game);
 	renderFields(game);
   renderBar(game);
@@ -103,6 +104,7 @@ function selectPawnMoves(game, pawnMoves) {
   pawnMoves.forEach(move => {
     const fieldId = createFieldId(move.fieldId);
     const pawnId = createPawnId(move.pawnId);
+
     $(pawnId).addClass(CAN_MOVE_CLASS);
     $(fieldId).addClass(MOVE_TO_THIS_FIELD_CLASS);
     $(pawnId).bind('click',() => renderGame(game));

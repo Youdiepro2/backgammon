@@ -77,7 +77,7 @@ class Game():
         pawn.fieldId = move.fieldId
         self.dices.removeResult(move.diceResult)
         self.updateWinner()
-        
+
         if 0 == len(self.dices.results):
             self.changeTurn()
 

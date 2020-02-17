@@ -29,7 +29,6 @@ function renderGame(game) {
   renderBar(game);
   renderDices(game);
   selectMoves(game);
-	// renderErrors(game);
 }
 
 function renderDices(game) {
@@ -53,21 +52,11 @@ function renderBar(game){
 
 function renderWinner(game) {
 	if (game.winner !== null) {
-		const translatedError = `<p class='success'>${translate(GAME_WINNED_KEY, pl)}${game.winner._value_}</p>`;
+		const translatedError = `<p class='success'>Grę wygrywa ${game.winner.color}</p>`;
 		if (translatedError !== null) {
 			$(MESSAGE_DIV_ID).append(translatedError);
 		}
 	}
-}
-
-function renderErrors(game){
-	const errors = game.violations.messages;
-	errors.forEach((error) => {
-		const translatedError = `<p class='error'>${translate(error, pl)}</p>`;
-		if (translatedError !== null) {
-			$(MESSAGE_DIV_ID).append(translatedError);
-		}
-	});
 }
 
 function renderFields(game) {
@@ -144,12 +133,3 @@ function createFieldId(fieldId){
 function translate(key, object) {
 	return object[key] || null;
 }
-
-const pl = {
-	'cant_mark_inactive_board': 'Nie możesz zaznaczyć nieaktywnej planszy!',
-	'field_already_marked': 'Nie możesz zaznaczyć już zaznaczonego pola!',
-	'field_out_of_board': 'Zarządano zaznaczenia pola z poza planszy',
-	'no_such_board': 'Nie ma planszy o tym id',
-	'board_already_winned': 'Nie możesz zaznaczyć już wygranej planszy, zaznacz dowolną inną',
-	'game_winned': 'Grę wygrywa '
-};

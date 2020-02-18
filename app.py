@@ -10,8 +10,8 @@ game = Game()
 
 @app.route('/')
 def hello_world():
-    if not fileName:
-        game.createInInitialState()
+    # if not fileName:
+    game.createInInitialState()
 
     return render_template('index.html.j2', game=game)
 
